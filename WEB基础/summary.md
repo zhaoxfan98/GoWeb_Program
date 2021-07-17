@@ -1,3 +1,4 @@
+# Go Web
 
 ## Web工作方式
 
@@ -17,4 +18,12 @@ HTTP是一个无状态的面向连接的协议，无状态不代表HTTP不能保
 ***
 
 ## 3.3 Go如何使得Web工作
+
+![http包运行机制](./http包运行机制.png)
+
+![http处理机制](./http处理机制.png)
+
+## 3.4 Go的http包详解
+
+Go的HTTP有两个核心功能：Conn、ServeMux
 
