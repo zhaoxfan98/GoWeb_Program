@@ -62,3 +62,22 @@ if m, _ := regexp.MatchString(`^(\d{17})([0-9]|X)$`, r.Form.Get("usercard")); !m
 
 ## 4.5 处理文件上传
 
+要使表单能够上传文件，首先第一步就是添加form的enctype属性，enctype属性有如下三种情况：
+
+1. application/x-www-form-urlencoded   表示在发送前编码所有字符（默认）
+2. multipart/form-data	  不对字符编码。在使用包含文件上传控件的表单时，必须使用该值。
+3. text/plain	  空格转换为 "+" 加号，但不对特殊字符编码。
+
+上传文件主要三步处理：
+
+1. 表单中增加enctype="multipart/form-data"
+2. 服务端调用r.ParseMultipartForm，把上传的文件存储在内存和临时文件中
+3. 使用r.FormFile获取文件句柄，然后对文件进行存储等处理
+
+客户端通过multipart.Write把文件的文本流写入一个缓存中，然后调用http的Post方法把缓存传到服务器
+
+## 小结
+
+学习Go如何处理表单信息，通过用户登录、文件上传的例子展示
+
+能够了解客户端和服务端是如何进行数据上的交互，客户端将数据传递给服务器系统，服务器接受数据又把处理结果反馈给客户端。
