@@ -243,3 +243,11 @@ type DB struct {
 - 完全支持database/sql接口
 - 支持keeplive，保持长连接
 
+sql.Open()函数用来打开一个注册过的数据库驱动，go-sql-driver中注册了mysql这个数据库驱动，第二个参数是DSN(Data Source Name),它是go-sql-driver定义的一些数据库链接和配置信息。
+
+db.Prepare()函数用来返回准备要执行的sql操作，然后返回准备完毕的执行状态
+
+db.Query()函数用来直接执行Sql返回Rows结果
+
+stmt.Exec()函数用来执行stmt准备好的SQL语句
+
