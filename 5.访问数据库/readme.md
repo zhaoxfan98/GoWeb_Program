@@ -251,3 +251,83 @@ db.Query()函数用来直接执行Sql返回Rows结果
 
 stmt.Exec()函数用来执行stmt准备好的SQL语句
 
+## 5.3 使用SQLite数据库
+
+SQLite是一个开源的嵌入式关系数据库，实现自包容、零配置、支持事务的SQL数据库引擎。特点是高度便携、使用方便、结构紧凑、高效、可靠。与其他数据库管理系统不同，SQLite 的安装和运行非常简单，在大多数情况下,只要确保SQLite的二进制文件存在即可开始创建、连接和使用数据库。如果您正在寻找一个嵌入式数据库项目或解决方案，SQLite是绝对值得考虑。SQLite可以说是开源的Access。
+
+## 5.4 使用PostgreSQL数据库
+
+PostgreSQL 是一个自由的对象-关系数据库服务器(数据库管理系统)，它在灵活的 BSD-风格许可证下发行。它提供了相对其他开放源代码数据库系统(比如 MySQL 和 Firebird)，和对专有系统比如 Oracle、Sybase、IBM 的 DB2 和 Microsoft SQL Server的一种选择。
+
+PostgreSQL和MySQL比较，它更加庞大一点，因为它是用来替代Oracle而设计的。所以在企业应用中采用PostgreSQL是一个明智的选择。
+
+MySQL被Oracle收购之后正在逐步的封闭（自MySQL 5.5.31以后的所有版本将不再遵循GPL协议），鉴于此，将来我们也许会选择PostgreSQL而不是MySQL作为项目的后端数据库。
+
+## 5.5 使用Beego orm库进行ORM开发
+
+beego orm是一个Go进行ORM操作的库，采用了Go style方式对数据库进行操作，实现了struct到数据表记录的映射。beego orm是一个十分轻量的Go ORM框架。
+
+beego orm是支持database/sql标准接口的ORM库，所以理论上来说，只要数据库驱动支持database/sql接口就可以无缝的接入beego orm
+
+**安装
+
+```
+go get github.com/astaxie/beego
+```
+
+**如何初始化
+
+```
+import (
+	"database/sql"
+	"github.com/astaxie/beego/orm"
+	_ "github.com/go-sql-driver/mysql"
+)
+
+func init() {
+	//注册驱动
+	orm.RegisterDriver("mysql", orm.DRMySQL)
+	//设置默认数据库
+	orm.RegisterDataBase("default", "mysql", "root:root@/my_db?charset=utf8", 30)
+	//注册定义的model
+    	orm.RegisterModel(new(User))
+
+   	// 创建table
+        orm.RunSyncdb("default", false, true)
+}
+```
+
+MySQL配置：
+
+```
+//导入驱动
+//_ "github.com/go-sql-driver/mysql"
+
+//注册驱动
+orm.RegisterDriver("mysql", orm.DR_MySQL)
+
+// 设置默认数据库
+//mysql用户：root ，密码：zxxx ， 数据库名称：test ， 数据库别名：default
+ orm.RegisterDataBase("default", "mysql", "root:zxxx@/test?charset=utf8")
+```
+
+导入必须的package之后，需要打开数据库的链接，然后创建一个beego orm对象，如下所示
+
+```
+func main() {
+    o := orm.NewOrm()
+}
+```
+
+## 5.6 NOSQL数据库操作
+
+NoSQL指的是非关系型的数据库。随着Web2.0的兴起，传统的关系数据库在应付Web2.0网站，特别是超大规模和高并发的SNS类型的Web2.0纯动态网站已经显得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。
+
+目前流行的NOSQL主要有redis、mongoDB、Cassandra和Membase等。这些数据库都有高性能、高并发读写等特点
+
+### redis
+
+
+
+### mongoDB
+
